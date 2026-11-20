@@ -1,8 +1,17 @@
-Write your reflection here.
-
-See reflection.md for what makes a good reflection — be specific, use the
-terminology from this assignment (HTML element, CSS selector, class and id
-selectors, sibling selector, inner_text, attribute, headless browser, waiting for
-JavaScript, crawling, pagination, read_html, melt, fuzzy matching, normalization,
-threshold, human in the loop, merge indicator, gap analysis), and make it
-actionable.
+In scrapers.py, I learned to write CSS selectors with Inspect: class selectors
+(h2.menu-section__title), id selectors (menu h2) and the sibling selector
+"~ div.menu-grid" in scrape_lakeshore. In scrape_hilltop, pd.read_html turned
+every HTML table element into a DataFrame, and melt reshaped the wide S/M/L
+columns into one row per size. My biggest struggle was scrape_canal, because
+the headless browser saw nothing until I started waiting for JavaScript with
+wait_for_selector, handled pagination by counting cards before each
+"Show more" click with wait_for_function, and crawled each href attribute
+with urljoin. In matching.py, normalize_name and fuzzy matching with
+rapidfuzz's token_sort_ratio showed me that a threshold like AUTO_MATCH (90)
+measures spelling, not meaning ("Matcha Latte" scored 87 against "Mocha
+Latte"), so match_items needs a human in the loop on the Review page. In
+analysis.py, gap_analysis used merge with indicator=True to label "only us"
+and "only them". Next I will practice choosing between wait_for_selector,
+wait_for_function and locator waits by scraping another JavaScript-heavy site
+with page.screenshot() at each step, and try token_set_ratio and WRatio to
+see how the auto/review split changes.
